@@ -79,7 +79,7 @@ public class AppApplication {
 					.parseInt(cnsl.readLine("O seu pagamento será parcelado, digite a quantidade de parcelas\n"));
 			if (installments > maximumInstallments) {
 				System.out.println(
-						"Quantidade de parcelas inválidas, iremos assumir em " + maximumInstallments + " vezes");
+						"Quantidade de parcelas inválidas, iremos assumir em " + maximumInstallments + " x");
 				installments = maximumInstallments;
 			}
 
