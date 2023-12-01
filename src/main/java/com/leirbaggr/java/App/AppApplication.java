@@ -33,99 +33,125 @@ Exercicio 1:
 public class AppApplication {
 
 	public static void main(String[] args) {
-		System.out.println("==================================");
-		System.out.println("Seja bem-vindo ao software");
-		System.out.println("==================================");
+		while (true) {
+			Console cnsl = System.console();
+			System.out.println("==================================");
+			System.out.println("Seja bem-vindo ao software");
+			System.out.println("==================================");
+			int exit = Integer.parseInt(cnsl.readLine("Digite: \n0 para continuar \n1 para sair\n"));
+			if (exit == 1) {
+				System.out.println("Tem certeza que deseja sair? (clique no enter para continuar) ");
+				String response = cnsl.readLine().toLowerCase();
 
-		Console cnsl = System.console();
-		// quantidadeCaixas
-		int quantityBoxes = Integer
-				.parseInt(cnsl.readLine("Digite a quantidade de caixas que você pretende vender?\n"));
-		System.out.println("[" + quantityBoxes + "]");
-
-		// valorLaranja
-		double valueOrange = 0.50;
-		// quantidadeCaixasPromoção
-		int quantityBoxesPromotion = 10;
-		// quantidadeLaranjasPorCaixa
-		int quantityOrangesPerBox = 50;
-		// lucro
-		int profit = 40;
-		// parcelamentoDesconto
-		int installmentDiscount = 10;
-		// porcentagemAdição
-		int percentageAddition = 15;
-		// máximoParcelas
-		int maximumInstallments = 12;
-		// valorParaDesconto
-		double valueForDiscount = 100;
-		// parcelada
-		int installments = 0;
-		int totalNumberOfOranges = quantityBoxes * quantityOrangesPerBox;
-		double valorTotal = totalNumberOfOranges * valueOrange;
-		double totalvaluechanged = valorTotal;
-
-		String typePayment = cnsl.readLine("Você deseja pagar a vista ou parcelado ?\n A - A vista\n P - Parcelado\n");
-
-		boolean aVista = typePayment.toUpperCase().equals("A");
-
-		if (aVista) {
-			System.out.println("O seu pagamento será a vista\n");
-			if (valorTotal > valueForDiscount || quantityBoxes == quantityBoxesPromotion) {
-				totalvaluechanged -= (valorTotal * installmentDiscount / 100);
-			}
-		} else {
-			installments = Integer
-					.parseInt(cnsl.readLine("O seu pagamento será parcelado, digite a quantidade de parcelas\n"));
-			if (installments > maximumInstallments) {
-				System.out.println(
-						"Quantidade de parcelas inválidas, iremos assumir em " + maximumInstallments + " x");
-				installments = maximumInstallments;
+				while (!response.equals("S") && !response.equals("N")) {
+					System.out.println("Por favor, digite S para sair ou N para continuar.");
+					response = cnsl.readLine().toUpperCase();
+				}
+				if (response.equals("S")) {
+					System.out.println("Saindo do software...");
+					break;
+				} else {
+					System.out.println("Continuando no software...");
+				}
+			} else if (exit == 0) {
+				System.out.println("Continuando no software...");
+			} else {
+				System.out.println("Opção inválida. Por favor, digite 0 para continuar ou 1 para sair.");
 			}
 
-			if (installments == 1) {
+			// quantidadeCaixas
+			int quantityBoxes = Integer
+					.parseInt(cnsl.readLine("Digite a quantidade de caixas que você pretende vender?\n"));
+			System.out.println("[" + quantityBoxes + "]");
+
+			// valorLaranja
+			double valueOrange = 0.50;
+			// quantidadeCaixasPromoção
+			int quantityBoxesPromotion = 10;
+			// quantidadeLaranjasPorCaixa
+			int quantityOrangesPerBox = 50;
+			// lucro
+			int profit = 40;
+			// parcelamentoDesconto
+			int installmentDiscount = 10;
+			// porcentagemAdição
+			int percentageAddition = 15;
+			// máximoParcelas
+			int maximumInstallments = 12;
+			// valorParaDesconto
+			double valueForDiscount = 100;
+			// parcelada
+			int installments = 0;
+			//Número total de laranjas
+			int totalNumberOfOranges = quantityBoxes * quantityOrangesPerBox;
+			double valorTotal = totalNumberOfOranges * valueOrange;
+			//valor total alterado
+			double totalvaluechanged = valorTotal;
+
+			String typePayment = cnsl
+					.readLine("Você deseja pagar a vista ou parcelado ?\n A - A vista\n P - Parcelado\n");
+
+			boolean aVista = typePayment.toUpperCase().equals("A");
+
+			if (aVista) {
 				System.out.println("O seu pagamento será a vista\n");
 				if (valorTotal > valueForDiscount || quantityBoxes == quantityBoxesPromotion) {
 					totalvaluechanged -= (valorTotal * installmentDiscount / 100);
 				}
-			}
-
-			else if (installments > 5) {
-				totalvaluechanged += (valorTotal * percentageAddition / 100);
 			} else {
-				switch (installments) {
-					case 2:
-						percentageAddition = 5;
-						break;
-					case 3:
-						percentageAddition = 8;
-						break;
-					case 4:
-						percentageAddition = 10;
-						break;
-					case 5:
-						percentageAddition = 13;
-						break;
+				installments = Integer
+						.parseInt(cnsl.readLine("O seu pagamento será parcelado, digite a quantidade de parcelas\n"));
+				if (installments > maximumInstallments) {
+					System.out.println(
+							"Quantidade de parcelas inválidas, iremos assumir em " + maximumInstallments + " x");
+					installments = maximumInstallments;
 				}
-				totalvaluechanged += (valorTotal * percentageAddition / 100);
-			}
-		}
 
-		double profitReceive = (totalvaluechanged * profit / 100);
-		System.out.println("==================================");
-		System.out.println("Muito bom, parabéns pela venda");
-		System.out.println("O seu lucro vai ser de: R$ " + profitReceive);
-		System.out.println("O valor total da venda a Cobrar do cliente é de: R$ " + totalvaluechanged);
-		System.out.println("O cliente escolheu o tipo de pagamento: "
-				+ (aVista ? "A vista" : "Parcelado em " + installments + "x"));
-		if (aVista) {
-			System.out.println("Para o pagamento a vista demos o desconto de: R$ " + (valorTotal - totalvaluechanged));
-		} else {
-			System.out.println(
-					"Para o pagamento parcelado colocamos um acrescimo de: R$ " + (totalvaluechanged - valorTotal));
-			System.out.println("O valor da parcela será de: R$ " + (totalvaluechanged / installments));
+				if (installments == 1) {
+					System.out.println("O seu pagamento será a vista\n");
+					if (valorTotal > valueForDiscount || quantityBoxes == quantityBoxesPromotion) {
+						totalvaluechanged -= (valorTotal * installmentDiscount / 100);
+					}
+				}
+
+				else if (installments > 5) {
+					totalvaluechanged += (valorTotal * percentageAddition / 100);
+				} else {
+					switch (installments) {
+						case 2:
+							percentageAddition = 5;
+							break;
+						case 3:
+							percentageAddition = 8;
+							break;
+						case 4:
+							percentageAddition = 10;
+							break;
+						case 5:
+							percentageAddition = 13;
+							break;
+					}
+					totalvaluechanged += (valorTotal * percentageAddition / 100);
+				}
+			}
+
+			double profitReceive = (totalvaluechanged * profit / 100);
+			System.out.println("==================================");
+			System.out.println("Muito bom, parabéns pela venda");
+			System.out.println("O seu lucro vai ser de: R$ " + profitReceive);
+			System.out.println("O valor total da venda a Cobrar do cliente é de: R$ " + totalvaluechanged);
+			System.out.println("O cliente escolheu o tipo de pagamento: "
+					+ (aVista ? "A vista" : "Parcelado em " + installments + "x"));
+			if (aVista) {
+				System.out.println(
+						"Para o pagamento a vista demos o desconto de: R$ " + (valorTotal - totalvaluechanged));
+			} else {
+				System.out.println(
+						"Para o pagamento parcelado colocamos um acrescimo de: R$ " + (totalvaluechanged - valorTotal));
+				System.out.println("O valor da parcela será de: R$ " + (totalvaluechanged / installments));
+			}
+			System.out.println("==================================");
 		}
-		System.out.println("==================================");
 		// SpringApplication.run(AppApplication.class, args);
 	}
 
